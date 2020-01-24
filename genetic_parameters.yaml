@@ -1,0 +1,5 @@
+innings_in_game : 9
+starting_lineups : 20
+seasons_to_play : 10
+total_generations : 100
+mutations : 4

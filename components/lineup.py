@@ -28,6 +28,11 @@ class Lineup:
 	def average_score(self):
 		return self.total_score/self.record.total_games()
 
+	def print_lineup(self):
+		[print(str(player), end=" ") for player in self.players]
+		print()
+		
+
 def create_fully_random_lineup(size, double_perc, hr_perc, walk_perc, trip_perc):
 	lineup = [randomly_select_player(double_perc, hr_perc, walk_perc, trip_perc) for i in range(size)]
 	return Lineup(lineup)

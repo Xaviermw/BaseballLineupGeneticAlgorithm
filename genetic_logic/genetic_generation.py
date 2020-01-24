@@ -8,9 +8,11 @@ class FitMetric(Enum):
 	WIN_PERCENTAGE = 0
 	AVERAGE_SCORE = 1
 
-class GeneticRound:
+class GeneticGeneration:
 
-	def __init__(self, parents, num_mutations, lineup_size, double_perc, hr_perc, walk_perc, trip_perc, innings_in_game, seasons_played, fit_metric):
+	generation_num = 0
+
+	def __init__(self, parents, num_mutations, lineup_size, double_perc, hr_perc, walk_perc, trip_perc, innings_in_game, seasons_played, generation_num, fit_metric):
 		self.double_perc = double_perc
 		self.hr_perc = hr_perc
 		self.walk_perc = walk_perc
@@ -25,6 +27,7 @@ class GeneticRound:
 		self.children = []
 		self.all_lineups = []
 		self.best_lineups = []
+		self.generation_num = generation_num
 		self.clear_records()
 		self.append_to_all(parents)
 
@@ -75,7 +78,7 @@ class GeneticRound:
 							home.record.loses = home.record.loses + 1
 							away.record.wins = away.record.wins + 1
 
-	def calculate_most_fit_lineup(self):
+	def calculate_most_fit_lineups(self):
 
 		if (self.fit_metric == FitMetric.WIN_PERCENTAGE):
 			self.all_lineups.sort(key=lambda x: x.record.win_percentage(), reverse=True)
@@ -84,10 +87,16 @@ class GeneticRound:
 		else:
 			raise ValueError("Incorrect Fit Metric Used")
 
-		print("Lineup: " + str(self.all_lineups[0].players))
+		self.best_lineups = self.all_lineups[:20]
+
+	def print_generation_most_fit(self):
+		print("Most Fit Lineup of Generation " + str(self.generation_num))
+		self.all_lineups[0].print_lineup()
 		print("Win Percentage: " + str(self.all_lineups[0].record.win_percentage()))
 		print("Average Score: " + str(self.all_lineups[0].average_score()))
-		self.best_lineups = self.all_lineups[:20]
+		print()
+
+
 
 	def append_to_all(self, lineups):
 		self.all_lineups = self.all_lineups + lineups

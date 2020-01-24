@@ -13,6 +13,9 @@ class Player:
 	def __init__(self):
 		self.base = 0
 
+	def __str__(self):
+		return self.__class__.__name__
+
 class MoonwalkerPlayer(Player):
 	def __init__(self, walk_percentage):
 		self.walk_percentage = walk_percentage
